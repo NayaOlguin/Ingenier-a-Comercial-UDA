@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Curricular - Ingeniería Comercial</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .semestre {
+      margin-bottom: 40px;
+    }
+    .ramos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    button.ramo {
+      border: 1px solid #000;
+      background-color: #fff;
+      padding: 10px 15px;
+      min-width: 220px;
+      cursor: pointer;
+    }
+    button.ramo[disabled] {
+      color: #aaa;
+      border-color: #ccc;
+      cursor: not-allowed;
+    }
+    button.aprobado {
+      text-decoration: line-through;
+    }
+    .reiniciar {
+      display: block;
+      margin: 50px auto 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Malla Curricular - Ingeniería Comercial</h1>
+  <div id="contenedor-malla"></div>
+
+  <button class="reiniciar" onclick="reiniciarProgreso()">🔁 Reiniciar progreso</button>
+
+  <script>
+    const malla = {
+  "1° Semestre": {
+    "algebra_1": {
+      "nombre": "Álgebra I",
+      "requisitos": []
+    },
+    "calculo_1": {
+      "nombre": "Cálculo I",
+      "requisitos": []
+    },
+    "intro_economia": {
+      "nombre": "Introducción a la Economía",
+      "requisitos": []
+    },
+    "contabilidad_basica": {
+      "nombre": "Contabilidad Básica",
+      "requisitos": []
+    },
+    "administracion_1": {
+      "nombre": "Administración I",
+      "requisitos": []
+    },
+    "metodologia_aprendizaje": {
+      "nombre": "Metodología para el Aprendizaje Autónomo",
+      "requisitos": []
+    }
+  },
+  "2° Semestre": {
+    "algebra_2": {
+      "nombre": "Álgebra II",
+      "requisitos": [
+        "algebra_1"
+      ]
+    },
+    "calculo_2": {
+      "nombre": "Cálculo II",
+      "requisitos": [
+        "calculo_1"
+      ]
+    },
+    "micro_1": {
+      "nombre": "Microeconomía I",
+      "requisitos": [
+        "calculo_1",
+        "intro_economia"
+      ]
+    },
+    "contabilidad_avanzada": {
+      "nombre": "Contabilidad Avanzada",
+      "requisitos": [
+        "contabilidad_basica"
+      ]
+    },
+    "administracion_2": {
+      "nombre": "Administración II",
+      "requisitos": [
+        "administracion_1"
+      ]
+    },
+    "programacion": {
+      "nombre": "Taller de Programación",
+      "requisitos": [
+        "algebra_1"
+      ]
+    }
+  },
+  "3° Semestre": {
+    "comunicacion": {
+      "nombre": "Técnicas de la Comunicación",
+      "requisitos": []
+    },
+    "estadisticas": {
+      "nombre": "Estadísticas",
+      "requisitos": [
+        "calculo_2"
+      ]
+    },
+    "macro_1": {
+      "nombre": "Macroeconomía I",
+      "requisitos": [
+        "micro_1"
+      ]
+    },
+    "costos": {
+      "nombre": "Contabilidad de Costos",
+      "requisitos": [
+        "contabilidad_avanzada"
+      ]
+    },
+    "investigacion": {
+      "nombre": "Metodología de la Investigación",
+      "requisitos": []
+    },
+    "sistemas_info": {
+      "nombre": "Sistemas de Información Administrativa",
+      "requisitos": [
+        "administracion_2",
+        "programacion"
+      ]
+    }
+  },
+  "4° Semestre": {
+    "inv_operativa": {
+      "nombre": "Investigación Operativa",
+      "requisitos": [
+        "algebra_2",
+        "estadisticas"
+      ]
+    },
+    "estadistica_emp": {
+      "nombre": "Estadística Empresarial",
+      "requisitos": [
+        "estadisticas"
+      ]
+    },
+    "micro_2": {
+      "nombre": "Microeconomía II",
+      "requisitos": [
+        "macro_1"
+      ]
+    },
+    "proceso_industrial": {
+      "nombre": "Proceso Industrial",
+      "requisitos": [
+        "costos",
+        "sistemas_info"
+      ]
+    },
+    "ingles_1": {
+      "nombre": "Inglés I",
+      "requisitos": []
+    },
+    "tic": {
+      "nombre": "TIC",
+      "requisitos": []
+    }
+  },
+  "5° Semestre": {
+    "legislacion_laboral": {
+      "nombre": "Legislación Laboral",
+      "requisitos": [
+        "algebra_1",
+        "calculo_1",
+        "intro_economia",
+        "contabilidad_basica",
+        "administracion_1",
+        "metodologia_aprendizaje",
+        "algebra_2",
+        "calculo_2",
+        "micro_1",
+        "contabilidad_avanzada",
+        "administracion_2",
+        "programacion",
+        "comunicacion",
+        "estadisticas",
+        "macro_1",
+        "costos",
+        "investigacion",
+        "sistemas_info"
+      ]
+    },
+    "derecho_comercial": {
+      "nombre": "Derecho Comercial",
+      "requisitos": [
+        "algebra_1",
+        "calculo_1",
+        "intro_economia",
+        "contabilidad_basica",
+        "administracion_1",
+        "metodologia_aprendizaje",
+        "algebra_2",
+        "calculo_2",
+        "micro_1",
+        "contabilidad_avanzada",
+        "administracion_2",
+        "programacion",
+        "comunicacion",
+        "estadisticas",
+        "macro_1",
+        "costos",
+        "investigacion",
+        "sistemas_info"
+      ]
+    },
+    "econometria": {
+      "nombre": "Econometría",
+      "requisitos": [
+        "estadistica_emp",
+        "micro_2"
+      ]
+    },
+    "macro_2": {
+      "nombre": "Macroeconomía II",
+      "requisitos": [
+        "macro_1"
+      ]
+    },
+    "control_gestion": {
+      "nombre": "Control de Gestión",
+      "requisitos": [
+        "costos"
+      ]
+    },
+    "ingles_2": {
+      "nombre": "Inglés II",
+      "requisitos": [
+        "ingles_1"
+      ]
+    }
+  },
+  "6° Semestre": {
+    "gestion_personas": {
+      "nombre": "Gestión de Personas",
+      "requisitos": [
+        "legislacion_laboral"
+      ]
+    },
+    "gestion_operaciones": {
+      "nombre": "Gestión de Operaciones",
+      "requisitos": [
+        "inv_operativa",
+        "proceso_industrial"
+      ]
+    },
+    "taller_relacion": {
+      "nombre": "Taller de Relación Interpersonal",
+      "requisitos": [
+        "legislacion_laboral"
+      ]
+    },
+    "finanzas_1": {
+      "nombre": "Finanzas Corporativas I",
+      "requisitos": [
+        "control_gestion"
+      ]
+    },
+    "ingles_3": {
+      "nombre": "Inglés III",
+      "requisitos": [
+        "ingles_2"
+      ]
+    },
+    "legislacion_tributaria": {
+      "nombre": "Legislación Tributaria",
+      "requisitos": [
+        "derecho_comercial"
+      ]
+    }
+  },
+  "7° Semestre": {
+    "comportamiento_org": {
+      "nombre": "Comportamiento Organizacional",
+      "requisitos": [
+        "gestion_personas"
+      ]
+    },
+    "logistica": {
+      "nombre": "Logística Empresarial",
+      "requisitos": [
+        "gestion_operaciones"
+      ]
+    },
+    "gestion_estrategica": {
+      "nombre": "Gestión Estratégica",
+      "requisitos": [
+        "finanzas_1"
+      ]
+    },
+    "finanzas_2": {
+      "nombre": "Finanzas Corporativas II",
+      "requisitos": [
+        "finanzas_1"
+      ]
+    },
+    "ingles_4": {
+      "nombre": "Inglés IV",
+      "requisitos": [
+        "ingles_3"
+      ]
+    },
+    "marketing_1": {
+      "nombre": "Marketing I",
+      "requisitos": [
+        "gestion_operaciones",
+        "finanzas_1"
+      ]
+    },
+    "practica_formativa": {
+      "nombre": "Práctica Formativa",
+      "requisitos": [
+        "algebra_1",
+        "calculo_1",
+        "intro_economia",
+        "contabilidad_basica",
+        "administracion_1",
+        "metodologia_aprendizaje",
+        "algebra_2",
+        "calculo_2",
+        "micro_1",
+        "contabilidad_avanzada",
+        "administracion_2",
+        "programacion",
+        "comunicacion",
+        "estadisticas",
+        "macro_1",
+        "costos",
+        "investigacion",
+        "sistemas_info",
+        "inv_operativa",
+        "estadistica_emp",
+        "micro_2",
+        "proceso_industrial",
+        "ingles_1",
+        "tic",
+        "legislacion_laboral",
+        "derecho_comercial",
+        "econometria",
+        "macro_2",
+        "control_gestion",
+        "ingles_2",
+        "gestion_personas",
+        "gestion_operaciones",
+        "taller_relacion",
+        "finanzas_1",
+        "ingles_3",
+        "legislacion_tributaria"
+      ]
+    }
+  },
+  "8° Semestre": {
+    "desarrollo_org": {
+      "nombre": "Desarrollo Organizacional",
+      "requisitos": [
+        "comportamiento_org"
+      ]
+    },
+    "taller_innovacion": {
+      "nombre": "Taller de Innovación y Emprendimiento",
+      "requisitos": [
+        "algebra_1",
+        "calculo_1",
+        "intro_economia",
+        "contabilidad_basica",
+        "administracion_1",
+        "metodologia_aprendizaje",
+        "algebra_2",
+        "calculo_2",
+        "micro_1",
+        "contabilidad_avanzada",
+        "administracion_2",
+        "programacion",
+        "comunicacion",
+        "estadisticas",
+        "macro_1",
+        "costos",
+        "investigacion",
+        "sistemas_info",
+        "inv_operativa",
+        "estadistica_emp",
+        "micro_2",
+        "proceso_industrial",
+        "ingles_1",
+        "tic",
+        "legislacion_laboral",
+        "derecho_comercial",
+        "econometria",
+        "macro_2",
+        "control_gestion",
+        "ingles_2",
+        "gestion_personas",
+        "gestion_operaciones",
+        "taller_relacion",
+        "finanzas_1",
+        "ingles_3",
+        "legislacion_tributaria"
+      ]
+    },
+    "optativo_1": {
+      "nombre": "Optativo I",
+      "requisitos": [
+        "algebra_1",
+        "calculo_1",
+        "intro_economia",
+        "contabilidad_basica",
+        "administracion_1",
+        "metodologia_aprendizaje",
+        "algebra_2",
+        "calculo_2",
+        "micro_1",
+        "contabilidad_avanzada",
+        "administracion_2",
+        "programacion",
+        "comunicacion",
+        "estadisticas",
+        "macro_1",
+        "costos",
+        "investigacion",
+        "sistemas_info",
+        "inv_operativa",
+        "estadistica_emp",
+        "micro_2",
+        "proceso_industrial",
+        "ingles_1",
+        "tic"
+      ]
+    },
+    "electivo_1": {
+      "nombre": "Electivo I",
+      "requisitos": [
+        "algebra_1",
+        "calculo_1",
+        "intro_economia",
+        "contabilidad_basica",
+        "administracion_1",
+        "metodologia_aprendizaje",
+        "algebra_2",
+        "calculo_2",
+        "micro_1",
+        "contabilidad_avanzada",
+        "administracion_2",
+        "programacion",
+        "comunicacion",
+        "estadisticas",
+        "macro_1",
+        "costos",
+        "investigacion",
+        "sistemas_info",
+        "inv_operativa",
+        "estadistica_emp",
+        "micro_2",
+        "proceso_industrial",
+        "ingles_1",
+        "tic",
+        "legislacion_laboral",
+        "derecho_comercial",
+        "econometria",
+        "macro_2",
+        "control_gestion",
+        "ingles_2",
+        "gestion_personas",
+        "gestion_operaciones",
+        "taller_relacion",
+        "finanzas_1",
+        "ingles_3",
+        "legislacion_tributaria"
+      ]
+    },
+    "ingles_5": {
+      "nombre": "Inglés V",
+      "requisitos": [
+        "ingles_4"
+      ]
+    },
+    "marketing_2": {
+      "nombre": "Marketing II",
+      "requisitos": [
+        "marketing_1"
+      ]
+    }
+  },
+  "9° Semestre": {
+    "trabajo_titulacion_1": {
+      "nombre": "Trabajo de Titulación I",
+      "requisitos": [
+        "desarrollo_org",
+        "taller_innovacion",
+        "optativo_1",
+        "electivo_1",
+        "ingles_5",
+        "marketing_2",
+        "practica_formativa"
+      ]
+    },
+    "electivo_2": {
+      "nombre": "Electivo II",
+      "requisitos": [
+        "electivo_1"
+      ]
+    },
+    "eval_proyectos": {
+      "nombre": "Preparación y Evaluación de Proyectos",
+      "requisitos": [
+        "desarrollo_org",
+        "taller_innovacion",
+        "optativo_1",
+        "electivo_1",
+        "ingles_5",
+        "marketing_2",
+        "practica_formativa"
+      ]
+    },
+    "etica_moral": {
+      "nombre": "Ética y Moral Profesional",
+      "requisitos": [
+        "electivo_1"
+      ]
+    },
+    "ingles_6": {
+      "nombre": "Inglés VI",
+      "requisitos": [
+        "ingles_5"
+      ]
+    },
+    "practica_profesional": {
+      "nombre": "Práctica Profesional",
+      "requisitos": [
+        "desarrollo_org",
+        "taller_innovacion",
+        "optativo_1",
+        "electivo_1",
+        "ingles_5",
+        "marketing_2",
+        "practica_formativa"
+      ]
+    }
+  },
+  "10° Semestre": {
+    "trabajo_titulacion_2": {
+      "nombre": "Trabajo de Titulación II",
+      "requisitos": [
+        "trabajo_titulacion_1"
+      ]
+    },
+    "optativo_2": {
+      "nombre": "Optativo II",
+      "requisitos": [
+        "optativo_1"
+      ]
+    },
+    "taller_proyectos": {
+      "nombre": "Taller de Proyectos",
+      "requisitos": [
+        "eval_proyectos"
+      ]
+    },
+    "rse": {
+      "nombre": "RSE",
+      "requisitos": [
+        "desarrollo_org",
+        "taller_innovacion",
+        "optativo_1",
+        "electivo_1",
+        "ingles_5",
+        "marketing_2",
+        "practica_formativa"
+      ]
+    }
+  }
+};
+
+    const aprobados = JSON.parse(localStorage.getItem("aprobados") || "[]");
+
+    function crearMalla() {
+      const contenedor = document.getElementById("contenedor-malla");
+      for (const [semestre, ramos] of Object.entries(malla)) {
+        const div = document.createElement("div");
+        div.className = "semestre";
+        const h2 = document.createElement("h2");
+        h2.textContent = semestre;
+        div.appendChild(h2);
+
+        const lista = document.createElement("div");
+        lista.className = "ramos";
+
+        for (const [clave, ramo] of Object.entries(ramos)) {
+          const btn = document.createElement("button");
+          btn.className = "ramo";
+          btn.id = clave;
+          btn.textContent = ramo.nombre;
+
+          if (aprobados.includes(clave)) {
+            btn.classList.add("aprobado");
+            btn.textContent += " ✅";
+          }
+
+          const faltan = ramo.requisitos.filter(r => !aprobados.includes(r));
+          if (faltan.length > 0) {
+            btn.disabled = true;
+            btn.title = "Debes aprobar: " + faltan.map(r => obtenerNombre(r)).join(", ");
+          }
+
+          btn.onclick = () => aprobarRamo(clave);
+          lista.appendChild(btn);
+        }
+
+        div.appendChild(lista);
+        contenedor.appendChild(div);
+      }
+    }
+
+    function aprobarRamo(clave) {
+      if (!aprobados.includes(clave)) {
+        aprobados.push(clave);
+        localStorage.setItem("aprobados", JSON.stringify(aprobados));
+        location.reload();
+      }
+    }
+
+    function reiniciarProgreso() {
+      localStorage.removeItem("aprobados");
+      location.reload();
+    }
+
+    function obtenerNombre(clave) {
+      for (const semestre of Object.values(malla)) {
+        if (semestre[clave]) return semestre[clave].nombre;
+      }
+      return clave;
+    }
+
+    crearMalla();
+  </script>
+</body>
+</html>
